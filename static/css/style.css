@@ -1,11 +1,19 @@
 body{
-  background-color: #012001;
+  background-color: #008080;
 }
-.box{ 
-  background-color: lightgrey;
-  width: 300px;
-  border: 15px solid green;
-  padding: 50px;
-  margin: 20px;
+.box{
+  background-color: #ff9999;
+  border: 10px solid black;
+  width: 250px;
+  height: 300px;
+  padding:50px;
+  margin:20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 }
+.word{
+  font-size: 
 }
