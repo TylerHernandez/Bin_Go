@@ -18,6 +18,9 @@ jinja_current_directory = jinja2.Environment(
 
 class LandingPage(webapp2.RequestHandler):
     def get(self):
+        user = users.get_current_user()
+        if (not user):
+            
         start_template = jinja_current_directory.get_template("welcomepage.html")
         self.response.write(start_template.render())
 
