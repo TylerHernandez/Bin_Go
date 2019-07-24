@@ -3,20 +3,22 @@ let canvas= document.getElementById("gameScreen");
 let ctx= canvas.getContext('2d');
 
 const GRAVITY= 5;
-let Velocity_Y= - 100.0;
+let Velocity_Y= null;
 let Velocity_X= 100;
+
+
 let Wind= Math.floor((Math.random() * 4.0) + .5);
 Wind/=2;
-console.log(Wind)
+//console.log(Wind)
 
 class Object{
   constructor(gameWidth, gameHeight)
-  {// this
+  {
     this.width=30;
     this.height=30;
 
     this.position = {
-      x: 80,
+      x: 70,
       y: 300
     };
   }
@@ -26,16 +28,15 @@ class Object{
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 
-  update(deltaTime, wind)
+  update(deltaTime, wind, Velocity_Y)
   {
     if(!deltaTime) return;
     this.position.x += Velocity_X / deltaTime + wind;
-    this.position.y += Velocity_Y/ deltaTime ;
+    this.position.y += Velocity_Y/ deltaTime;
     Velocity_Y = Velocity_Y + GRAVITY;
   }
 
 }
-
 
 class Fan{
 
@@ -68,11 +69,12 @@ class Person{
   this.height=300;
 
   this.position= {
-    x: 75,
-    y: 300
+    x: 55,
+    y: 400
   };
 
   }
+
   draw(ctx)
   {
     ctx.fillStyle='#4B0082';
@@ -115,6 +117,8 @@ class Bins{
   }
 }
 
+document.getElementById("speedBut").addEventListener("click", gameLoop);
+
 const GAME_WIDTH= 800;
 const GAME_HEIGHT= 600;
 
@@ -130,17 +134,18 @@ let ty= new Person();
 let lastTime=0;
 
 document.write("Wind Speed: " + Wind);
+//Velocity_Y.setAttribute("type", 10);
+
+//addEventListener()
 
 function gameLoop(timestamp)
 {
-   let deltaTime= timestamp - lastTime;
-   lastTime=timestamp;
-
+  let deltaTime= timestamp-lastTime ;
+  lastTime= timestamp;
   ctx.clearRect(0,0,800,600);
-  testobj.update(deltaTime, -Wind);
+
   //document.write(Wind);
   // in object the four levels are -.50, -1, -1.5, and -2
-  testobj.draw(ctx);
   fan.drawFan(ctx);
   ty.draw(ctx);
 
@@ -154,10 +159,19 @@ function gameLoop(timestamp)
   blackbin.drawblack(ctx);
   blackbin.position.x=575;
 
+  let element = document.querySelector("#idk");
+  Velocity_Y= Number(element.value);
+  console.log(Velocity_Y)
 
+  testobj.update(deltaTime, -Wind, Velocity_Y);
+  testobj.draw(ctx);
+
+
+console.log(Velocity_Y )
   requestAnimationFrame(gameLoop);
 
 
 }
 
-gameLoop();
+
+//gameLoop();
