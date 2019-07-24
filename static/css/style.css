@@ -1,19 +1,56 @@
+html{
+  height: 100%;
+}
+
 body{
   background-color: #008080;
 }
-.box{
+.yourMom{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 125px;
+
+}
+#box{
   background-color: #ff9999;
   border: 10px solid black;
   width: 250px;
-  height: 300px;
-  padding:50px;
-  margin:20px;
-
+  height: 200px;
+  padding:150px;
+  /* margin-left: : 450px; */
+  /* position: center; */
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
+  align-self: center;
+  text-align: center;
 }
 .word{
-  font-size: 
+  font-size:50px
+}
+.start{
+  display: flex;
+  align-items: center;
+  background-color:#ff4d4d; /* Green */
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+
+
+
+}
+
+.signup{
+  font-size: 10px;
+  font-family:comic sans-serif ;
+
 }
