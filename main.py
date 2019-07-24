@@ -1,14 +1,25 @@
-#main.py
-# the import section
 import webapp2
+import jinja2
+import os
+from google.appengine.api import users
+from google.appengine.ext import ndb
 
-# the handler section
-class MainPage(webapp2.RequestHandler):
-    def get(self): #for a get request
-        self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write('Hello, World!') #the response
+class CssiUser(ndb.Model):
+  first_name = ndb.StringProperty()
+  last_name = ndb.StringProperty()
+  email = ndb.StringProperty()
+  lbs_recycled = ndb.IntegerProperty()
 
-# the app configuration section
+jinja_current_directory = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    extensions=['jinja2.ext.autoescape'],
+    autoescape=True)
+
+class LandingPage(webapp2.RequestHandler):
+    def get(self):
+        start_template = jinja_current_directory.get_template("welcomepage.html")
+        self.response.write(start_template.render())
+
 app = webapp2.WSGIApplication([
-    ('/', MainPage), #this maps the root url to the Main Page Handler
+  ('/', LandingPage)
 ], debug=True)
