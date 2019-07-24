@@ -7,15 +7,15 @@ let Velocity_Y= - 100.0;
 let Velocity_X= 100;
 
 
-class Paddle{
+class Object{
   constructor(gameWidth, gameHeight)
-  {
+  {// this
     this.width=30;
     this.height=30;
 
     this.position = {
-      x: 200,
-      y: 200
+      x: 80,
+      y: 300
     };
   }
 
@@ -74,7 +74,7 @@ class Bins{
 const GAME_WIDTH= 800;
 const GAME_HEIGHT= 600;
 
-let paddle= new Paddle(GAME_WIDTH, GAME_HEIGHT);
+let testobj= new Object(GAME_WIDTH, GAME_HEIGHT);
 let bluebin=new Bins(GAME_WIDTH, GAME_HEIGHT);
 let redbin=new Bins(GAME_WIDTH, GAME_HEIGHT);
 let greenbin=new Bins(GAME_WIDTH, GAME_HEIGHT);
@@ -92,8 +92,8 @@ function gameLoop(timestamp)
    lastTime=timestamp;
 
   ctx.clearRect(0,0,800,600);
-  paddle.update(deltaTime);
-  paddle.draw(ctx);
+  testobj.update(deltaTime);
+  testobj.draw(ctx);
 
   redbin.drawred(ctx);
   redbin.position.x=400;
