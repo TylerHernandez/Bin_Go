@@ -30,7 +30,7 @@ class LandingPage(webapp2.RequestHandler):
 
 class SignUp(webapp2.RequestHandler):
     def get(self):
-        #user 
+        #user
     #Post Method, need to figure out how to link to
 
 
