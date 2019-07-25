@@ -24,8 +24,13 @@ class LandingPage(webapp2.RequestHandler):
         welcome_template = jinja_current_directory.get_template("welcomepage.html")
         if not user:
             self.response.write(signin_template.render())
+            login_url = users.create_login_url('/')
+            login_html_element = '<a href="%s">Sign in</a>' % login_url
+            self.response.write('Please log in.<br>' + login_html_element)
+
         if user:
             self.response.write(welcome_template.render())
+
 
 
 
