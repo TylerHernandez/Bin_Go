@@ -14,9 +14,10 @@ class Object{
     this.width=30;
     this.height=30;
 
+
     this.position = {
       x: 70,
-      y: 300
+      y: 400
     };
   }
 
@@ -28,12 +29,31 @@ class Object{
   update(deltaTime, wind)
   {
     if(!deltaTime) return;
+    if(testobj.position.y>295 && testobj.position.y<305 && testobj.position.x<416 && testobj.position.x>324)
+    {
+      console.log('Point!')
+    }
     this.position.x += (Velocity_X+Power)/ deltaTime + wind;
-    console.log(Power);
+    if(testobj.position.x>324 && testobj.position.x<416 && testobj.position.y==300)
+    {
+      console.log('Point!')
+    }
+    ////console.log.log.log(Power);
     this.position.y += (Velocity_Y)/ deltaTime;
+    if(testobj.position.x>324 && testobj.position.x<416 && testobj.position.y==300)
+    {
+      console.log('Point!')
+    }
     Velocity_Y = Velocity_Y + GRAVITY;
-    console.log(wind);
-    //console.log(Velocity_Y)
+    if(testobj.position.x>324 && testobj.position.x<416 && testobj.position.y==300)
+    {
+      console.log('Point!')
+    }
+    //console.log(this.position.x + " " + this.position.y)
+    //console.log(testobj.position.x<416)
+
+
+
   }
 
 }
@@ -82,6 +102,9 @@ class Person{
   }
 
 }
+
+//function endRedBox(){
+
 
 class Bins{
   constructor(gameWidth, gameHeight)
@@ -148,15 +171,15 @@ function initializeGameLoop()
 {
   testobj.position.y=300;
   testobj.position.x=70;
-  testobj2.position.y=300;
-  testobj2.position.x=70;
+  //testobj2.position.y=300;
+  //testobj2.position.x=70;
   let element = document.querySelector("#Velocity_Y");
   let secondelement = document.querySelector("#Power");
   Velocity_Y= Number(element.value)*-1;
   Power= Number(secondelement.value);
 
-  //console.log('velocity')
-  //console.log(Velocity_Y)
+  //////console.log('velocity')
+  //////console.log(Velocity_Y)
   gameLoop()
 
 
@@ -170,18 +193,20 @@ function gameLoop(timestamp){
   testobj.update(deltaTime, -Wind);
   testobj.draw(ctx);
 
-  testobj2.update(deltaTime, +Wind);
-  testobj2.draw(ctx);
-
-
+  //testobj2.update(deltaTime, +Wind);
+//testobj2.draw(ctx);
+// if testobj.position.y=400 and testobj.position.x= 600
+//  console.log()
+// }
 if(testobj.position.y>900){
   Wind= Math.floor((Math.random() * 4.0) + .5);
   document.getElementById('windActualSpeed').innerHTML = Wind;
   return;
 }
 
-//console.log(Velocity_Y )
+//////console.log(Velocity_Y )
   requestAnimationFrame(gameLoop);
+
 }
 drawStuff();
 document.getElementById('windActualSpeed').innerHTML = Wind;
