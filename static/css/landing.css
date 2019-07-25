@@ -1,3 +1,6 @@
+*{
+  font-family: 'Roboto', sans-serif;
+}
 html{
   height: 100%;
 }
@@ -30,11 +33,10 @@ body{
 }
 #signInText{
   order: -1;
-  margin-bottom: 300px;
+  margin-bottom: 250px;
 }
 
 #signInButton{
-  margin-bottom: 50px;
 }
 .words{
   font-size: 50px;
@@ -43,14 +45,17 @@ body{
 }
 
 .signup{
-
-  background-color: #f44336;
+  align-items: center;
+  background-color:#ff4d4d;
+  border: none;
   color: black;
-  padding: 15px 25px;
+  padding: 15px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 
 /* a:hover, a:active {
   background-color: red; */
