@@ -27,11 +27,19 @@ class LandingPage(webapp2.RequestHandler):
         if user:
             self.response.write(welcome_template.render())
 
+class SignInPage(webapp2.RequestHandler):
+    def get(self):
+        user = users.get_current_user()
+        start_template = jinja_current_directory.get_template("signin.html")
+        self.response.headers['Content-Type'] = 'text/html'
+        self.response.write(start_template.render())
+
     #Post Method, need to figure out how to link to
 
 
 
 
 app = webapp2.WSGIApplication([
-  ('/', LandingPage)
+  ('/', LandingPage),
+  ('/signin', SignInPage)
 ], debug=True)
