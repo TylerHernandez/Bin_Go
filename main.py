@@ -28,15 +28,9 @@ class LandingPage(webapp2.RequestHandler):
             self.response.write(welcome_template.render())
 
 
-class SignUp(webapp2.RequestHandler):
-    def get(self):
-        #user
-    #Post Method, need to figure out how to link to
-
 
 
 
 app = webapp2.WSGIApplication([
-  ('/', LandingPage),
-  ('/signup', SignUp)
+    ('/', LandingPage),
 ], debug=True)
