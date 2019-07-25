@@ -1,4 +1,3 @@
-
 html{
   height: 100%;
 }
@@ -29,9 +28,36 @@ body{
   align-self: center;
   text-align: center;
 }
+#signInText{
+  order: -1;
+  margin-bottom: 300px;
+}
 
+#signInButton{
+  margin-bottom: 50px;
+}
 .words{
   font-size: 50px;
-  text-align: top;
+  text-align:;
 
+}
+
+.signup{
+
+  background-color: #f44336;
+  color: black;
+  padding: 15px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+
+
+/* a:hover, a:active {
+  background-color: red; */
+
+}
+.signin{
+  font-size: 50px;
+  text-align:center;
+  margin-bottom: 100px;
 }
