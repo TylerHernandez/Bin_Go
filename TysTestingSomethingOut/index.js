@@ -4,6 +4,7 @@ let ctx= canvas.getContext('2d');
 const GRAVITY= 10;
 let Velocity_Y= 10;
 let Velocity_X= 100;
+let Power= 0;
 
 let Wind= Math.floor((Math.random() * 4.0) + .5);
 
@@ -27,9 +28,9 @@ class Object{
   update(deltaTime, wind)
   {
     if(!deltaTime) return;
-    this.position.x += Velocity_X / deltaTime + wind;
-    console.log(this.position.x);
-    this.position.y += Velocity_Y/ deltaTime;
+    this.position.x += (Velocity_X+Power)/ deltaTime + wind;
+    console.log(Power);
+    this.position.y += (Velocity_Y)/ deltaTime;
     Velocity_Y = Velocity_Y + GRAVITY;
     console.log(wind);
     //console.log(Velocity_Y)
@@ -129,7 +130,6 @@ let fan = new Fan();
 let ty= new Person();
 let lastTime=0;
 
-
 function drawStuff(){
 ctx.clearRect(0,0,800,600);
 bluebin.position.x=325;
@@ -146,14 +146,15 @@ ty.draw(ctx);
 }
 function initializeGameLoop()
 {
-
-
   testobj.position.y=300;
   testobj.position.x=70;
   testobj2.position.y=300;
   testobj2.position.x=70;
-  let element = document.querySelector("#idk");
-  Velocity_Y= Number(element.value);
+  let element = document.querySelector("#Velocity_Y");
+  let secondelement = document.querySelector("#Power");
+  Velocity_Y= Number(element.value)*-1;
+  Power= Number(secondelement.value);
+
   //console.log('velocity')
   //console.log(Velocity_Y)
   gameLoop()
@@ -184,7 +185,7 @@ if(testobj.position.y>900){
 }
 drawStuff();
 document.getElementById('windActualSpeed').innerHTML = Wind;
-document.getElementById("speedBut").addEventListener("click", initializeGameLoop);
+document.getElementById("Go").addEventListener("click", initializeGameLoop);
 
 
 
