@@ -32,7 +32,7 @@ body{
   font-size:50px
 }
 .start{
-  display: flex;
+  /* display: flex; */
   align-items: center;
   background-color:#ff4d4d;
   border: none;

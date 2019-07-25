@@ -1,22 +1,20 @@
 //import Paddle from 'paddle';
 let canvas= document.getElementById("gameScreen");
 let ctx= canvas.getContext('2d');
-
-const GRAVITY= 5;
-let Velocity_Y= - 100.0;
+const GRAVITY= 10;
+let Velocity_Y= 10;
 let Velocity_X= 100;
+
 let Wind= Math.floor((Math.random() * 4.0) + .5);
-Wind/=2;
-console.log(Wind)
 
 class Object{
-  constructor(gameWidth, gameHeight)
-  {// this
+  constructor()
+  {
     this.width=30;
     this.height=30;
 
     this.position = {
-      x: 80,
+      x: 70,
       y: 300
     };
   }
@@ -30,12 +28,14 @@ class Object{
   {
     if(!deltaTime) return;
     this.position.x += Velocity_X / deltaTime + wind;
-    this.position.y += Velocity_Y/ deltaTime ;
+    console.log(this.position.x);
+    this.position.y += Velocity_Y/ deltaTime;
     Velocity_Y = Velocity_Y + GRAVITY;
+    console.log(wind);
+    //console.log(Velocity_Y)
   }
 
 }
-
 
 class Fan{
 
@@ -68,11 +68,12 @@ class Person{
   this.height=300;
 
   this.position= {
-    x: 75,
-    y: 300
+    x: 55,
+    y: 400
   };
 
   }
+
   draw(ctx)
   {
     ctx.fillStyle='#4B0082';
@@ -80,7 +81,6 @@ class Person{
   }
 
 }
-
 
 class Bins{
   constructor(gameWidth, gameHeight)
@@ -118,46 +118,75 @@ class Bins{
 const GAME_WIDTH= 800;
 const GAME_HEIGHT= 600;
 
-let testobj= new Object(GAME_WIDTH, GAME_HEIGHT);
+
+let testobj= new Object();
+let testobj2= new Object();
 let bluebin=new Bins(GAME_WIDTH, GAME_HEIGHT);
 let redbin=new Bins(GAME_WIDTH, GAME_HEIGHT);
 let greenbin=new Bins(GAME_WIDTH, GAME_HEIGHT);
 let blackbin=new Bins(GAME_WIDTH, GAME_HEIGHT);
 let fan = new Fan();
 let ty= new Person();
-
-
 let lastTime=0;
 
-document.write("Wind Speed: " + Wind);
 
-function gameLoop(timestamp)
+function drawStuff(){
+ctx.clearRect(0,0,800,600);
+bluebin.position.x=325;
+bluebin.drawblue(ctx);
+
+greenbin.position.x=450;
+greenbin.drawgreen(ctx);
+
+blackbin.position.x=575;
+blackbin.drawblack(ctx);
+
+fan.drawFan(ctx);
+ty.draw(ctx);
+}
+function initializeGameLoop()
 {
-   let deltaTime= timestamp - lastTime;
-   lastTime=timestamp;
-
-  ctx.clearRect(0,0,800,600);
-  testobj.update(deltaTime, -Wind);
-  //document.write(Wind);
-  // in object the four levels are -.50, -1, -1.5, and -2
-  testobj.draw(ctx);
-  fan.drawFan(ctx);
-  ty.draw(ctx);
 
 
-  bluebin.drawblue(ctx);
-  bluebin.position.x=325;
-
-  greenbin.drawgreen(ctx);
-  greenbin.position.x=450;
-
-  blackbin.drawblack(ctx);
-  blackbin.position.x=575;
-
-
-  requestAnimationFrame(gameLoop);
+  testobj.position.y=300;
+  testobj.position.x=70;
+  testobj2.position.y=300;
+  testobj2.position.x=70;
+  let element = document.querySelector("#idk");
+  Velocity_Y= Number(element.value);
+  //console.log('velocity')
+  //console.log(Velocity_Y)
+  gameLoop()
 
 
 }
 
-gameLoop();
+function gameLoop(timestamp){
+  let deltaTime= timestamp-lastTime ;
+  lastTime= timestamp;
+
+  drawStuff();
+  testobj.update(deltaTime, -Wind);
+  testobj.draw(ctx);
+
+  testobj2.update(deltaTime, +Wind);
+  testobj2.draw(ctx);
+
+
+if(testobj.position.y>900){
+  Wind= Math.floor((Math.random() * 4.0) + .5);
+  document.getElementById('windActualSpeed').innerHTML = Wind;
+  return;
+}
+
+//console.log(Velocity_Y )
+  requestAnimationFrame(gameLoop);
+}
+drawStuff();
+document.getElementById('windActualSpeed').innerHTML = Wind;
+document.getElementById("speedBut").addEventListener("click", initializeGameLoop);
+
+
+
+
+//gameLoop();
