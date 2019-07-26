@@ -204,16 +204,37 @@ if(plastic_bottle.position.y>900|| !plastic_bottle.isVisible){
 //if object is recycling, checkInBlue
 //if object is compost, checkInGreen
 //if object is garbage, checkInBlack
-// function checkInBlue{
-//   if(plastic_bottle.position.y>295 && plastic_bottle.position.y<305 && plastic_bottle.position.x<416 && plastic_bottle.position.x>324)
-//   {
-//     console.log('Point!')
-//   }
-// }
-
 function checkInBlue(objectName){
   if(objectName.position.y>400){
       if(objectName.position.x>324 && objectName.position.x<416)
+      {
+        console.log('Point!');
+        this.isVisible=false;
+      }
+      else
+      {
+        console.log('Miss!');
+      }
+
+    }
+}
+function checkInGreen(objectName){
+  if(objectName.position.y>400){
+      if(objectName.position.x>449 && objectName.position.x<541)
+      {
+        console.log('Point!');
+        this.isVisible=false;
+      }
+      else
+      {
+        console.log('Miss!');
+      }
+
+    }
+}
+function checkInBlack(objectName){
+  if(objectName.position.y>400){
+      if(objectName.position.x>574 && objectName.position.x<666)
       {
         console.log('Point!');
         this.isVisible=false;
