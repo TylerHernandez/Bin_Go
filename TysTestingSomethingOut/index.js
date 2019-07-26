@@ -47,7 +47,7 @@ class Object{
       }
 
     //console.log(this.position.x + " " + this.position.y)
-    //console.log(testobj.position.x<416)
+    //console.log(plastic_bottle.position.x<416)
 
 
 
@@ -137,8 +137,8 @@ const GAME_WIDTH= 800;
 const GAME_HEIGHT= 600;
 
 
-let testobj= new Object("recycle");
-//let testobj2= new Object();
+let plastic_bottle= new Object("recycle");
+//let plastic_bottle2= new Object();
 let bluebin=new Bins(GAME_WIDTH, GAME_HEIGHT);
 let redbin=new Bins(GAME_WIDTH, GAME_HEIGHT);
 let greenbin=new Bins(GAME_WIDTH, GAME_HEIGHT);
@@ -162,10 +162,10 @@ fan.drawFan(ctx);
 ty.draw(ctx);
 }
 function initializeGameLoop(){
-  testobj.position.y=300;
-  testobj.position.x=70;
-  //testobj2.position.y=300;
-  //testobj2.position.x=70;
+  plastic_bottle.position.y=300;
+  plastic_bottle.position.x=70;
+  //plastic_bottle2.position.y=300;
+  //plastic_bottle2.position.x=70;
   let element = document.querySelector("#Velocity_Y");
   let secondelement = document.querySelector("#Power");
   Velocity_Y= Number(element.value)*-1;
@@ -182,18 +182,18 @@ function gameLoop(timestamp){
   lastTime= timestamp;
 
   drawStuff();
-  testobj.update(deltaTime, -Wind, "recycle", testobj);
-  testobj.draw(ctx);
+  plastic_bottle.update(deltaTime, -Wind, "recycle", plastic_bottle);
+  plastic_bottle.draw(ctx);
 
-  //testobj2.update(deltaTime, +Wind);
-//testobj2.draw(ctx);
-// if testobj.position.y=400 and testobj.position.x= 600
+  //plastic_bottle2.update(deltaTime, +Wind);
+//plastic_bottle2.draw(ctx);
+// if plastic_bottle.position.y=400 and plastic_bottle.position.x= 600
 //  console.log()
 // }
-if(testobj.position.y>900|| !testobj.isVisible){
+if(plastic_bottle.position.y>900|| !plastic_bottle.isVisible){
   Wind= Math.floor((Math.random() * 4.0) + .5);
   document.getElementById('windActualSpeed').innerHTML = Wind;
-  testobj.isVisible= true;
+  plastic_bottle.isVisible= true;
   return;
 }
 
@@ -205,7 +205,7 @@ if(testobj.position.y>900|| !testobj.isVisible){
 //if object is compost, checkInGreen
 //if object is garbage, checkInBlack
 // function checkInBlue{
-//   if(testobj.position.y>295 && testobj.position.y<305 && testobj.position.x<416 && testobj.position.x>324)
+//   if(plastic_bottle.position.y>295 && plastic_bottle.position.y<305 && plastic_bottle.position.x<416 && plastic_bottle.position.x>324)
 //   {
 //     console.log('Point!')
 //   }
