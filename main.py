@@ -9,7 +9,11 @@ class CssiUser(ndb.Model):
   last_name = ndb.StringProperty()
   email = ndb.StringProperty()
   lbs_recycled = ndb.IntegerProperty()
-  items_recycled = ndb.StringProperty()
+  item_list = ndb.StringProperty(repeated = True)
+
+class Item(ndb.Model):
+    item_name = ndb.StringProperty()
+    item_weight = ndb.IntegerProperty()
 
 
 jinja_current_directory = jinja2.Environment(
@@ -20,24 +24,58 @@ jinja_current_directory = jinja2.Environment(
 class LandingPage(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
-        signin_template = jinja_current_directory.get_template("Signin.html")
-        welcome_template = jinja_current_directory.get_template("welcomepage.html")
-        email_address = user.nickname()
-        if not user:
-            self.response.write(signin_template.render())
-            login_url = users.create_login_url('/')
-#Where does this all fit (the code below?)
-            cssi_user = CssiUser.query().filter(CssiUser.email == email_address).get()
-            if not CssiUser:
-                self.response.write(signup_template.render())
-                FirstName = CssiUser.first_name
-            if CssiUser:
-                self.response.write(welcome_template.render())
-
-
 
         if user:
-            self.response.write(welcome_template.render())
+            if not CssiUser.query(CssiUser.email == user.email()).get():
+                self.redirect('/signup')
+            else:
+                self.redirect('/welcome')
+
+        login_url = users.create_login_url('/')
+        template_vars = {
+            'login_url' : login_url
+        }
+
+        signin_template = jinja_current_directory.get_template("Signin.html")
+        self.response.write(signin_template.render(template_vars))
+
+    #def post (self):
+        #new_first_name = self.request.get('FirstName')
+        #new_last_name = self.request.get('LastName')
+
+
+class SignUpPage(webapp2.RequestHandler):
+    def get(self):
+        signup_template = jinja_current_directory.get_template("Signup.html")
+        self.response.write(signup_template.render())
+    def post(self):
+        user = users.get_current_user()
+        curr_first_name = self.request.get('FirstName')
+        curr_last_name = self.request.get('LastName')
+        curr_email = user.email()
+        curr_lbs_recycled = 0
+        curr_items_recycled = []
+        curr_user = CssiUser(
+            first_name = curr_first_name,
+            last_name = curr_last_name,
+            email = curr_email,
+            lbs_recycled = curr_lbs_recycled,
+            item_list = curr_items_recycled
+            )
+        curr_user.put()
+        self.redirect('/welcome')
+
+
+class WelcomePage(webapp2.RequestHandler):
+    def get(self):
+        welcome_template = jinja_current_directory.get_template("welcomepage.html")
+        self.response.write(welcome_template.render())
+
+class GamePage(webapp2.RequestHandler):
+    def get(self):
+        game_template = jinja_current_directory.get_template("gamepage.html")
+        self.response.write(game_template.render())
+
 
 
 class CompetePage(webapp2.RequestHandler):
@@ -57,6 +95,9 @@ class CompetePage(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', LandingPage),
-    ('/compete', CompetePage),
+    ('/signup', SignUpPage),
+    ('/welcome', WelcomePage),
+    ('/gamepage', GamePage),
+    ('/compete', CompetePage)
 
 ], debug=True)
