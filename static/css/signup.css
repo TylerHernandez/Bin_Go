@@ -20,6 +20,13 @@ body{
   margin: 10px;
 
 }
+
+#navbar {
+  display: flex;
+  justify-content: center;
+}
+
+
 #box{
   background:rgba(255, 255, 255, 0.3);
 
@@ -75,6 +82,7 @@ nav{
   background-color: lightpink;
   opacity: 0.9;
   color: white;
+
 }
 .navbar-brand{
   margin-left: 350px;
@@ -108,10 +116,38 @@ mr-auto{
 
 }
 .navbar.center .navbar-inner .nav{
-display:inline-block;
+/* display:inline-block;
 float: none;
+align-items: center; */
 }
-#navbarSupportedContent{
+.nav-link{
 font-family: 'Merriweather', serif;
 font-weight: bold;
+font-size: 30px;
+
+}
+.bin{
+  font-size:100px;
+  color: white;
+  font-family: "Apple Chancery",cursive;
+  font-weight: bold;
+  font-style: italic;
+}
+.bingo{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  text-align: center;
+
+}
+#bin1{
+  height:105px;
+  padding: 8px;
+  width: 80px;
+  padding-top: 40px;
+}
+.fix{
+  text-align: center;
 }
