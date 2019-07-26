@@ -138,6 +138,8 @@ const GAME_HEIGHT= 600;
 
 
 let plastic_bottle= new Object("recycle");
+let paper_ball= new Object("compost");
+let
 //let plastic_bottle2= new Object();
 let bluebin=new Bins(GAME_WIDTH, GAME_HEIGHT);
 let redbin=new Bins(GAME_WIDTH, GAME_HEIGHT);
@@ -209,7 +211,8 @@ function checkInBlue(objectName){
       if(objectName.position.x>324 && objectName.position.x<416)
       {
         console.log('Point!');
-        this.isVisible=false;
+        objectName.isVisible=false;
+        return;
       }
       else
       {
@@ -223,7 +226,7 @@ function checkInGreen(objectName){
       if(objectName.position.x>449 && objectName.position.x<541)
       {
         console.log('Point!');
-        this.isVisible=false;
+        objectName.isVisible=false;
       }
       else
       {
@@ -237,7 +240,7 @@ function checkInBlack(objectName){
       if(objectName.position.x>574 && objectName.position.x<666)
       {
         console.log('Point!');
-        this.isVisible=false;
+        objectName.isVisible=false;
       }
       else
       {
@@ -250,8 +253,5 @@ function checkInBlack(objectName){
 drawStuff();
 document.getElementById('windActualSpeed').innerHTML = Wind;
 document.getElementById("Go").addEventListener("click", initializeGameLoop);
-
-
-
 
 //gameLoop();
