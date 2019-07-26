@@ -5,16 +5,16 @@ const GRAVITY= 10;
 let Velocity_Y= 10;
 let Velocity_X= 100;
 let Power= 0;
-
+let counter=0;
 let Wind= Math.floor((Math.random() * 4.0) + .5);
 
 class Object{
-  constructor()
+  constructor(objType)
   {
     this.isVisible= true;
     this.width=30;
     this.height=30;
-
+    this.type=objType;
 
     this.position = {
       x: 70,
@@ -27,27 +27,27 @@ class Object{
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 
-  update(deltaTime, wind)
+  update(deltaTime, wind, objType, objectName)
   {
     if(!deltaTime) return;
     this.position.x += (Velocity_X+Power)/ deltaTime + wind;
     this.position.y += (Velocity_Y)/ deltaTime;
     Velocity_Y = Velocity_Y + GRAVITY;
-    if(this.position.y>400){
-      if(this.position.x>324 && this.position.x<416)
+    if(objType=='recycle')
       {
-        console.log('Point!');
-        this.isVisible=false;
+        checkInBlue(objectName);
       }
-      else
+    if(objType=='compost')
       {
-        console.log('Miss!');
+        checkInGreen();
       }
-
-    }
+    if(objType=='waste')
+      {
+        checkinGreen();
+      }
 
     //console.log(this.position.x + " " + this.position.y)
-    //console.log(testobj.position.x<416)
+    //console.log(plastic_bottle.position.x<416)
 
 
 
@@ -137,8 +137,10 @@ const GAME_WIDTH= 800;
 const GAME_HEIGHT= 600;
 
 
-let testobj= new Object();
-let testobj2= new Object();
+let plastic_bottle= new Object("recycle");
+let paper_ball= new Object("compost");
+let
+//let plastic_bottle2= new Object();
 let bluebin=new Bins(GAME_WIDTH, GAME_HEIGHT);
 let redbin=new Bins(GAME_WIDTH, GAME_HEIGHT);
 let greenbin=new Bins(GAME_WIDTH, GAME_HEIGHT);
@@ -162,10 +164,10 @@ fan.drawFan(ctx);
 ty.draw(ctx);
 }
 function initializeGameLoop(){
-  testobj.position.y=300;
-  testobj.position.x=70;
-  //testobj2.position.y=300;
-  //testobj2.position.x=70;
+  plastic_bottle.position.y=300;
+  plastic_bottle.position.x=70;
+  //plastic_bottle2.position.y=300;
+  //plastic_bottle2.position.x=70;
   let element = document.querySelector("#Velocity_Y");
   let secondelement = document.querySelector("#Power");
   Velocity_Y= Number(element.value)*-1;
@@ -182,21 +184,29 @@ function gameLoop(timestamp){
   lastTime= timestamp;
 
   drawStuff();
-  testobj.update(deltaTime, -Wind);
-  testobj.draw(ctx);
+  if(counter==0)
+  {
+  plastic_bottle.update(deltaTime, -Wind, "recycle", plastic_bottle);
+  plastic_bottle.draw(ctx);
+  }
+  if(counter==1)
+  {
+  paper_ball.update(deltaTime, -Wind, "compost", paper_ball);
+  paper_ball.draw(ctx);
+  }
 
-  //testobj2.update(deltaTime, +Wind);
-//testobj2.draw(ctx);
-// if testobj.position.y=400 and testobj.position.x= 600
+  //plastic_bottle2.update(deltaTime, +Wind);
+//plastic_bottle2.draw(ctx);
+// if plastic_bottle.position.y=400 and plastic_bottle.position.x= 600
 //  console.log()
 // }
-if(testobj.position.y>900|| !testobj.isVisible){
+if(plastic_bottle.position.y>900|| !plastic_bottle.isVisible){
   Wind= Math.floor((Math.random() * 4.0) + .5);
   document.getElementById('windActualSpeed').innerHTML = Wind;
-  testobj.isVisible= true;
+  plastic_bottle.isVisible= true;
   return;
 }
-
+//counter+=1;
 //////console.log(Velocity_Y )
   requestAnimationFrame(gameLoop);
 
@@ -204,17 +214,52 @@ if(testobj.position.y>900|| !testobj.isVisible){
 //if object is recycling, checkInBlue
 //if object is compost, checkInGreen
 //if object is garbage, checkInBlack
-// function checkInBlue{
-//   if(testobj.position.y>295 && testobj.position.y<305 && testobj.position.x<416 && testobj.position.x>324)
-//   {
-//     console.log('Point!')
-//   }
-// }
+function checkInBlue(objectName){
+  if(objectName.position.y>400){
+      if(objectName.position.x>324 && objectName.position.x<416)
+      {
+        console.log('Point!');
+        objectName.isVisible=false;
+        return;
+      }
+      else
+      {
+        console.log('Miss!');
+      }
+
+    }
+}
+function checkInGreen(objectName){
+  if(objectName.position.y>400){
+      if(objectName.position.x>449 && objectName.position.x<541)
+      {
+        console.log('Point!');
+        objectName.isVisible=false;
+      }
+      else
+      {
+        console.log('Miss!');
+      }
+
+    }
+}
+function checkInBlack(objectName){
+  if(objectName.position.y>400){
+      if(objectName.position.x>574 && objectName.position.x<666)
+      {
+        console.log('Point!');
+        objectName.isVisible=false;
+      }
+      else
+      {
+        console.log('Miss!');
+      }
+
+    }
+}
+
 drawStuff();
 document.getElementById('windActualSpeed').innerHTML = Wind;
 document.getElementById("Go").addEventListener("click", initializeGameLoop);
-
-
-
 
 //gameLoop();
