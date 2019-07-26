@@ -70,6 +70,24 @@ body{
   text-align: center;
 
 }
+
+nav{
+  background-color: lightpink;
+  opacity: 0.9;
+  color: white;
+}
+.navbar-brand{
+  margin-left: 350px;
+  margin-right: 50px
+}
+.nav-item{
+  margin-right: 50px;
+  margin-left: 50px;
+}
+mr-auto{
+  display: flex;
+  justify-content: space-evenly;
+}
 .start{
   /* display: flex; */
   align-items: center;
@@ -84,4 +102,16 @@ body{
   margin: 4px 2px;
   cursor: pointer;
   opacity: 1;
+}
+.navbar.center .navbar-inner{
+  text-align: center;
+
+}
+.navbar.center .navbar-inner .nav{
+display:inline-block;
+float: none;
+}
+#navbarSupportedContent{
+font-family: 'Merriweather', serif;
+font-weight: bold;
 }
