@@ -22,14 +22,33 @@ class LandingPage(webapp2.RequestHandler):
         user = users.get_current_user()
         signin_template = jinja_current_directory.get_template("Signin.html")
         welcome_template = jinja_current_directory.get_template("welcomepage.html")
+        email_address = user.nickname()
         if not user:
             self.response.write(signin_template.render())
             login_url = users.create_login_url('/')
-            login_html_element = '<a href="%s">Sign in</a>' % login_url
-            self.response.write('Please log in.<br>' + login_html_element)
+#Where does this all fit (the code below?)
+            cssi_user = CssiUser.query().filter(CssiUser.email == email_address).get()
+            if not CssiUser:
+                self.response.write(signup_template.render())
+                FirstName = CssiUser.first_name
+            if CssiUser:
+                self.response.write(welcome_template.render())
+
+
 
         if user:
             self.response.write(welcome_template.render())
+
+
+class CompetePage(webapp2.RequestHandler):
+    def get(self):
+        compete_template = jinja_current_directory.get_template("compete.html")
+        template_vars = {
+        'username': CssiUser.first_name,
+        'userscore': CssiUser.lbs_recycled
+        }
+
+
 
 
 
@@ -38,4 +57,6 @@ class LandingPage(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', LandingPage),
+    ('/compete', CompetePage),
+
 ], debug=True)
