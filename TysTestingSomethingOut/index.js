@@ -9,12 +9,12 @@ let Power= 0;
 let Wind= Math.floor((Math.random() * 4.0) + .5);
 
 class Object{
-  constructor()
+  constructor(objType)
   {
     this.isVisible= true;
     this.width=30;
     this.height=30;
-
+    this.type=objType;
 
     this.position = {
       x: 70,
@@ -27,24 +27,24 @@ class Object{
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 
-  update(deltaTime, wind)
+  update(deltaTime, wind, objType, objectName)
   {
     if(!deltaTime) return;
     this.position.x += (Velocity_X+Power)/ deltaTime + wind;
     this.position.y += (Velocity_Y)/ deltaTime;
     Velocity_Y = Velocity_Y + GRAVITY;
-    if(this.position.y>400){
-      if(this.position.x>324 && this.position.x<416)
+    if(objType=='recycle')
       {
-        console.log('Point!');
-        this.isVisible=false;
+        checkInBlue(objectName);
       }
-      else
+    if(objType=='compost')
       {
-        console.log('Miss!');
+        checkInGreen();
       }
-
-    }
+    if(objType=='waste')
+      {
+        checkinGreen();
+      }
 
     //console.log(this.position.x + " " + this.position.y)
     //console.log(testobj.position.x<416)
@@ -137,8 +137,8 @@ const GAME_WIDTH= 800;
 const GAME_HEIGHT= 600;
 
 
-let testobj= new Object();
-let testobj2= new Object();
+let testobj= new Object("recycle");
+//let testobj2= new Object();
 let bluebin=new Bins(GAME_WIDTH, GAME_HEIGHT);
 let redbin=new Bins(GAME_WIDTH, GAME_HEIGHT);
 let greenbin=new Bins(GAME_WIDTH, GAME_HEIGHT);
@@ -182,7 +182,7 @@ function gameLoop(timestamp){
   lastTime= timestamp;
 
   drawStuff();
-  testobj.update(deltaTime, -Wind);
+  testobj.update(deltaTime, -Wind, "recycle", testobj);
   testobj.draw(ctx);
 
   //testobj2.update(deltaTime, +Wind);
@@ -210,6 +210,22 @@ if(testobj.position.y>900|| !testobj.isVisible){
 //     console.log('Point!')
 //   }
 // }
+
+function checkInBlue(objectName){
+  if(objectName.position.y>400){
+      if(objectName.position.x>324 && objectName.position.x<416)
+      {
+        console.log('Point!');
+        this.isVisible=false;
+      }
+      else
+      {
+        console.log('Miss!');
+      }
+
+    }
+}
+
 drawStuff();
 document.getElementById('windActualSpeed').innerHTML = Wind;
 document.getElementById("Go").addEventListener("click", initializeGameLoop);
