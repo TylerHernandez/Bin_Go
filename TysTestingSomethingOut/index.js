@@ -5,7 +5,7 @@ const GRAVITY= 10;
 let Velocity_Y= 10;
 let Velocity_X= 100;
 let Power= 0;
-
+let counter=0;
 let Wind= Math.floor((Math.random() * 4.0) + .5);
 
 class Object{
@@ -184,8 +184,16 @@ function gameLoop(timestamp){
   lastTime= timestamp;
 
   drawStuff();
+  if(counter==0)
+  {
   plastic_bottle.update(deltaTime, -Wind, "recycle", plastic_bottle);
   plastic_bottle.draw(ctx);
+  }
+  if(counter==1)
+  {
+  paper_ball.update(deltaTime, -Wind, "compost", paper_ball);
+  paper_ball.draw(ctx);
+  }
 
   //plastic_bottle2.update(deltaTime, +Wind);
 //plastic_bottle2.draw(ctx);
@@ -198,7 +206,7 @@ if(plastic_bottle.position.y>900|| !plastic_bottle.isVisible){
   plastic_bottle.isVisible= true;
   return;
 }
-
+//counter+=1;
 //////console.log(Velocity_Y )
   requestAnimationFrame(gameLoop);
 
