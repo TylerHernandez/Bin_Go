@@ -1,7 +1,22 @@
+section {
+  display: flex;
+  justify-content: space-evenly;
+}
+h2 {
+  border: 2px solid black;
+  text-align: center;
+}
+.personalscore {
+  display:flex;
+  justify-content: space-between;
+  font-size: 50px;
+}
 .leaderboardcontainer {
   border: 5px solid black;
+  width: 40%;
 }
 
 .usercontainer {
   border: 5px solid black;
+  width: 40%;
 }
