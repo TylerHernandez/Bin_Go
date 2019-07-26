@@ -11,6 +11,7 @@ let Wind= Math.floor((Math.random() * 4.0) + .5);
 class Object{
   constructor()
   {
+    this.isVisible= true;
     this.width=30;
     this.height=30;
 
@@ -29,26 +30,22 @@ class Object{
   update(deltaTime, wind)
   {
     if(!deltaTime) return;
-    if(testobj.position.y>295 && testobj.position.y<305 && testobj.position.x<416 && testobj.position.x>324)
-    {
-      console.log('Point!')
-    }
     this.position.x += (Velocity_X+Power)/ deltaTime + wind;
-    if(testobj.position.x>324 && testobj.position.x<416 && testobj.position.y==300)
-    {
-      console.log('Point!')
-    }
-    ////console.log.log.log(Power);
     this.position.y += (Velocity_Y)/ deltaTime;
-    if(testobj.position.x>324 && testobj.position.x<416 && testobj.position.y==300)
-    {
-      console.log('Point!')
-    }
     Velocity_Y = Velocity_Y + GRAVITY;
-    if(testobj.position.x>324 && testobj.position.x<416 && testobj.position.y==300)
-    {
-      console.log('Point!')
+    if(this.position.y>400){
+      if(this.position.x>324 && this.position.x<416)
+      {
+        console.log('Point!');
+        this.isVisible=false;
+      }
+      else
+      {
+        console.log('Miss!');
+      }
+
     }
+
     //console.log(this.position.x + " " + this.position.y)
     //console.log(testobj.position.x<416)
 
@@ -102,9 +99,6 @@ class Person{
   }
 
 }
-
-//function endRedBox(){
-
 
 class Bins{
   constructor(gameWidth, gameHeight)
@@ -167,8 +161,7 @@ blackbin.drawblack(ctx);
 fan.drawFan(ctx);
 ty.draw(ctx);
 }
-function initializeGameLoop()
-{
+function initializeGameLoop(){
   testobj.position.y=300;
   testobj.position.x=70;
   //testobj2.position.y=300;
@@ -184,7 +177,6 @@ function initializeGameLoop()
 
 
 }
-
 function gameLoop(timestamp){
   let deltaTime= timestamp-lastTime ;
   lastTime= timestamp;
@@ -198,9 +190,10 @@ function gameLoop(timestamp){
 // if testobj.position.y=400 and testobj.position.x= 600
 //  console.log()
 // }
-if(testobj.position.y>900){
+if(testobj.position.y>900|| !testobj.isVisible){
   Wind= Math.floor((Math.random() * 4.0) + .5);
   document.getElementById('windActualSpeed').innerHTML = Wind;
+  testobj.isVisible= true;
   return;
 }
 
@@ -208,6 +201,15 @@ if(testobj.position.y>900){
   requestAnimationFrame(gameLoop);
 
 }
+//if object is recycling, checkInBlue
+//if object is compost, checkInGreen
+//if object is garbage, checkInBlack
+// function checkInBlue{
+//   if(testobj.position.y>295 && testobj.position.y<305 && testobj.position.x<416 && testobj.position.x>324)
+//   {
+//     console.log('Point!')
+//   }
+// }
 drawStuff();
 document.getElementById('windActualSpeed').innerHTML = Wind;
 document.getElementById("Go").addEventListener("click", initializeGameLoop);
