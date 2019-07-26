@@ -3,11 +3,30 @@
   <head>
     <meta charset="utf-8">
     <title>Compete</title>
+    <link rel="stylesheet" href="static/css/compete.css">
   </head>
   <body>
+    <form method="post">
+      Enter Item: <input type="text" name="item" value=""><br>
+      Enter Weight: <input type="text" name="weight" value=""><br>
+      <input type="submit" value="Submit">
+    </form>
     <div class="leaderboardcontainer">
+    {%for user in all_users %}
     <div class="userscore ">
-<p> {{username}}</p>
-  <p>{{userscore}}</p>
+      <p>{{user.first_name}}</p>
+      <p>{{user.lbs_recycled}}</p>
+    </div>
+    {%endfor%}
+  </div>
+  <div class="usercontainer">
+  {%for item in item_list  %}
+  <div class="personalscore">
+    <p>{{item.item_name}}</p>
+    <p>{{item.item_weight}}</p>
+  </div>
+  {%endfor%}
+</div>
+
   </body>
 </html>

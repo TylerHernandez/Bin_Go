@@ -9,7 +9,7 @@ class CssiUser(ndb.Model):
   last_name = ndb.StringProperty()
   email = ndb.StringProperty()
   lbs_recycled = ndb.IntegerProperty()
-  item_list = ndb.StringProperty(repeated = True)
+  item_list = ndb.KeyProperty(repeated = True)
 
 class Item(ndb.Model):
     item_name = ndb.StringProperty()
@@ -81,12 +81,27 @@ class GamePage(webapp2.RequestHandler):
 class CompetePage(webapp2.RequestHandler):
     def get(self):
         compete_template = jinja_current_directory.get_template("compete.html")
+        self.response.write(compete_template.render())
+
+
+    def post(self):
+        user = users.get_current_user()
+        curr_user = CssiUser.query().filter(CssiUser.email == user.nickname()).get()
+        all_users = CssiUser.query().fetch()
+        curr_item = Item(item_name = self.request.get('item'), item_weight = int(self.request.get('weight')))
+        item_key = curr_item.put()
+        curr_user.item_list.append(item_key)
+        curr_user.lbs_recycled = curr_user.lbs_recycled + int(self.request.get('weight'))
+        curr_user.put()
+        item_list = []
+        for key in curr_user.item_list:
+            item_list.append(key.get())
         template_vars = {
-        'username': CssiUser.first_name,
-        'userscore': CssiUser.lbs_recycled
+        'all_users': all_users,
+        'item_list': item_list
         }
-
-
+        compete_template = jinja_current_directory.get_template("compete.html")
+        self.response.write(compete_template.render(template_vars))
 
 
 
