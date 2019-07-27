@@ -11,7 +11,27 @@
       Enter Weight: <input type="text" name="weight" value=""><br>
       <input type="submit" value="Submit">
     </form>
+
+
+    <section>
+    <div class="usercontainer">
+    <h2>Your Items</h2>
+    <div class = "personalscore heading">
+      <p>Item</p>
+      <p>Weight</p>
+    </div>
+    {%for item in item_list  %}
+    <div class="personalscore">
+      <p>{{item.item_name}}</p>
+      <p>{{item.item_weight}}</p>
+    </div>
+    {%endfor%}
+    </div>
+
+
+
     <div class="leaderboardcontainer">
+    <h2>Leaderboard</h2>
     {%for user in all_users %}
     <div class="userscore ">
       <p>{{user.first_name}}</p>
@@ -19,14 +39,7 @@
     </div>
     {%endfor%}
   </div>
-  <div class="usercontainer">
-  {%for item in item_list  %}
-  <div class="personalscore">
-    <p>{{item.item_name}}</p>
-    <p>{{item.item_weight}}</p>
-  </div>
-  {%endfor%}
-</div>
+</section>
 
   </body>
 </html>
