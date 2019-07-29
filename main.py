@@ -109,7 +109,10 @@ class AboutPage(webapp2.RequestHandler):
         about_template = jinja_current_directory.get_template("about.html")
         self.response.write(about_template.render())
 
-
+class LearnPage(webapp2.RequestHandler):
+    def get(self):
+        learn_template = jinja_current_directory.get_template("learnpage.html")
+        self.response.write(learn_template.render())
 
 
 app = webapp2.WSGIApplication([
