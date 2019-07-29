@@ -21,16 +21,16 @@ h2 {
   border: 5px solid black;
   width: 30%;
   position: relative;
-  left: 200px;
-  top: -430px;
+  left: 1150px;
+  top: -421px;
 }
 
 .usercontainer {
   border: 5px solid black;
   width: 30%;
   position: relative;
-  left: -200px;
-  top: -430px;
+  left: 20px;
+  top: -270px;
 }
 html{
   height: 100%;
