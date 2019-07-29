@@ -87,7 +87,8 @@ class CompetePage(webapp2.RequestHandler):
     def post(self):
         user = users.get_current_user()
         curr_user = CssiUser.query().filter(CssiUser.email == user.nickname()).get()
-        all_users = CssiUser.query().fetch()
+        all_users = CssiUser.query().order(-CssiUser.lbs_recycled).fetch()
+        print all_users
         curr_item = Item(item_name = self.request.get('item'), item_weight = int(self.request.get('weight')))
         item_key = curr_item.put()
         curr_user.item_list.append(item_key)
