@@ -54,7 +54,7 @@ class SignUpPage(webapp2.RequestHandler):
         curr_last_name = self.request.get('LastName')
         curr_email = user.nickname()
         curr_lbs_recycled = 0
-        curr_items_recycled = ['']
+        curr_items_recycled = []
         curr_user = CssiUser(
             first_name = curr_first_name,
             last_name = curr_last_name,
@@ -91,7 +91,10 @@ class CompetePage(webapp2.RequestHandler):
         print curr_user
         curr_item = Item(item_name = self.request.get('item'), item_weight = int(self.request.get('weight')))
         item_key = curr_item.put()
-        curr_user.item_list.append(item_key)
+        if curr_user.item_list:
+            curr_user.item_list.append(item_key)
+        else:
+            curr_user.item_list = [item_key]
         curr_user.lbs_recycled = curr_user.lbs_recycled + int(self.request.get('weight'))
         curr_user.put()
         item_list = []
