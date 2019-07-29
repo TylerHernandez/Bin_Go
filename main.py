@@ -54,7 +54,7 @@ class SignUpPage(webapp2.RequestHandler):
         curr_last_name = self.request.get('LastName')
         curr_email = user.nickname()
         curr_lbs_recycled = 0
-        curr_items_recycled = []
+        curr_items_recycled = ['']
         curr_user = CssiUser(
             first_name = curr_first_name,
             last_name = curr_last_name,
@@ -88,7 +88,7 @@ class CompetePage(webapp2.RequestHandler):
         user = users.get_current_user()
         curr_user = CssiUser.query().filter(CssiUser.email == user.nickname()).get()
         all_users = CssiUser.query().order(-CssiUser.lbs_recycled).fetch()
-        print all_users
+        print curr_user
         curr_item = Item(item_name = self.request.get('item'), item_weight = int(self.request.get('weight')))
         item_key = curr_item.put()
         curr_user.item_list.append(item_key)
