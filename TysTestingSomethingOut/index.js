@@ -37,24 +37,32 @@ class Object{
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 
-  update(deltaTime, wind, objType, objectName)
+  updaterecycle(deltaTime, wind, objType, objectName)
   {
     if(!deltaTime || !inFlight ) return;
     this.position.x += (Velocity_X+Power)/ deltaTime + wind;
     this.position.y += (Velocity_Y)/ deltaTime;
     Velocity_Y = Velocity_Y + GRAVITY;
-    if(objType=='recycle')
-      {
         checkInBlue(objectName);
-      }
-    if(objType=='compost')
-      {
+
+  }
+  updatecompost(deltaTime, wind, objType, objectName)
+  {
+    if(!deltaTime || !inFlight ) return;
+    this.position.x += (Velocity_X+Power)/ deltaTime + wind;
+    this.position.y += (Velocity_Y)/ deltaTime;
+    Velocity_Y = Velocity_Y + GRAVITY;
+
         checkInGreen(objectName);
-      }
-    if(objType=='waste')
-      {
+
+  }
+  updatewaste(deltaTime, wind, objType, objectName)
+  {
+    if(!deltaTime || !inFlight ) return;
+    this.position.x += (Velocity_X+Power)/ deltaTime + wind;
+    this.position.y += (Velocity_Y)/ deltaTime;
+    Velocity_Y = Velocity_Y + GRAVITY;
         checkInBlack(objectName);
-      }
   }
 }
 
@@ -186,19 +194,18 @@ function resetGame(trashobj){
   Wind= Math.floor((Math.random() * 4.0) + .5);
   document.getElementById('windActualSpeed').innerHTML = Wind;
   trashobj.isVisible= false;
-  inFlight=false;
+  inFlight=false;// XXX:
   ////CONSOLE.LOG('hit');
-  return;
 }
 
 //if object is recycling, checkInBlue
 //if object is compost, checkInGreen
 //if object is garbage, checkInBlack
 function checkInBlue(objectName){
-  if(objectName.position.y>400){
+  if(objectName.position.y>400 && objectName.position.y<450){
       if(objectName.position.x>324 && objectName.position.x<416)
       {
-        //CONSOLE.LOG('Point!');
+        console.log('blue');
        // objectName.isVisible=false;
         counter+=1;
         //CONSOLE.LOG('repet');
@@ -214,10 +221,10 @@ function checkInBlue(objectName){
     }
 }
 function checkInGreen(objectName){
-  if(objectName.position.y>400){
+  if(objectName.position.y>400 && objectName.position.y<450){
       if(objectName.position.x>449 && objectName.position.x<541)
       {
-      //CONSOLE.LOG('Point!');
+     console.log('green');
       counter+=1;
       resetGame(objectName);
       return;
@@ -230,12 +237,13 @@ function checkInGreen(objectName){
     }
 }
 function checkInBlack(objectName){
-  if(objectName.position.y>400){
+  if(objectName.position.y>400 && objectName.position.y<450){
       if(objectName.position.x>574 && objectName.position.x<666)
       {
       //CONSOLE.LOG('Point!');
       console.log('game over');
       counter+=1;
+      console.log(objectName.position);
       resetGame(objectName);
       }
       else
@@ -256,12 +264,12 @@ function gameLoop(timestamp){
 
   if(counter==0)
   {
-  plastic_bottle.update(deltaTime, -Wind, "recycle", plastic_bottle);
+  plastic_bottle.updaterecycle(deltaTime, -Wind, "recycle", plastic_bottle);
   plastic_bottle.draw(ctx);
   //CONSOLE.LOG('condiitons');
   ////CONSOLE.LOG(plastic_bottle.position.y>900);
   //CONSOLE.LOG(plastic_bottle.isVisible);
-    if(plastic_bottle.position.y>900|| plastic_bottle.isVisible ){
+    if(plastic_bottle.position.y>800|| plastic_bottle.isVisible ){
 
       resetGame(plastic_bottle);
       //CONSOLE.LOG('something differentt');
@@ -269,26 +277,26 @@ function gameLoop(timestamp){
 
   }
 
-  if(counter==1)
+  else if (counter==1)
   {
-  paper_ball.update(deltaTime, -Wind, "compost", paper_ball);
+  paper_ball.updatecompost(deltaTime, -Wind, "compost", paper_ball);
   paper_ball.draw(ctx);
 //console.log(paper_ball.isVisible);
 //console.log('split');
 //console.log(paper_ball.position.y>900);
-    if(paper_ball.position.y>900|| paper_ball.isVisible){
+    if(paper_ball.position.y>800|| paper_ball.isVisible){
       resetGame(paper_ball);
     }
   }
 
-  if(counter==2)
+  else if(counter==2)
   {
-  diaper.update(deltaTime, -Wind, "waste", diaper);
+  diaper.updatewaste(deltaTime, -Wind, "waste", diaper);
   diaper.draw(ctx);
 //console.log(paper_ball.isVisible);
 //console.log('split');
 //console.log(paper_ball.position.y>900);
-    if(diaper.position.y>900||diaper.isVisible){
+    if(diaper.position.y>800||diaper.isVisible){
       resetGame(diaper);
     }
   }
