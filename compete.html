@@ -4,21 +4,32 @@
     <meta charset="utf-8">
     <title>Compete</title>
     <link rel="stylesheet" href="static/css/compete.css">
+    <link rel="stylesheet" href="./Game page_files/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
+
+
+
+
+
+
+
+    <div class="yourMom">
+      <div id="box">
     <form method="post">
       Enter Item: <input type="text" name="item" value=""><br>
       Enter Weight: <input type="text" name="weight" value=""><br>
-      <input type="submit" value="Submit">
+      <h2><button class="start"><center>Submit</center></button></h2>
     </form>
-
+</div>
+</div>
 
     <section>
     <div class="usercontainer">
     <h2>Your Items</h2>
     <div class = "personalscore heading">
       <p>Item</p>
-      <p>Weight</p>
+      <p>Weight (lbs)</p>
     </div>
     {%for item in item_list  %}
     <div class="personalscore">
@@ -32,6 +43,10 @@
 
     <div class="leaderboardcontainer">
     <h2>Leaderboard</h2>
+    <div class = "personalscore heading">
+      <p>Name</p>
+      <p>Weight (lbs)</p>
+    </div>
     {%for user in all_users %}
     <div class="userscore ">
       <p>{{user.first_name}}</p>

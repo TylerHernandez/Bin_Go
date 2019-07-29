@@ -19,12 +19,18 @@ h2 {
 }
 .leaderboardcontainer {
   border: 5px solid black;
-  width: 40%;
+  width: 30%;
+  position: relative;
+  left: 200px;
+  top: -430px;
 }
 
 .usercontainer {
   border: 5px solid black;
-  width: 40%;
+  width: 30%;
+  position: relative;
+  left: -200px;
+  top: -430px;
 }
 html{
   height: 100%;
