@@ -11,12 +11,13 @@ const initialpositiony=300;
 const initialpositionx=70;
 
 class Object{
-  constructor(objType)
+  constructor(objType, name)
   {
     this.isVisible= true;
     this.width=30;
     this.height=30;
     this.type=objType;
+    this.name= name;
 
     this.position = {
       x: 70,
@@ -137,8 +138,8 @@ const GAME_WIDTH= 800;
 const GAME_HEIGHT= 600;
 
 
-let plastic_bottle= new Object("recycle");
-let paper_ball= new Object("compost");
+let plastic_bottle= new Object("recycle", "plastic_bottle");
+let paper_ball= new Object("compost", "paper_ball");
 //let plastic_bottle2= new Object();
 let bluebin=new Bins(GAME_WIDTH, GAME_HEIGHT);
 let redbin=new Bins(GAME_WIDTH, GAME_HEIGHT);
@@ -174,14 +175,18 @@ function initializeGameLoop(){
   gameLoop();
 }
 
-function resetGame(trashobj){
-  trashobj.position.y=initialpositiony;
-  trashobj.position.x=initialpositionx;
+function generateWind()
+  {
   Wind= Math.floor((Math.random() * 4.0) + .5);
   document.getElementById('windActualSpeed').innerHTML = Wind;
-  trashobj.isVisible= false;
-  inFlight=false;
-  return;
+}
+
+function resetGame(putback, startup){
+  putback.position.y=initialpositiony;
+  putback.position.x=initialpositionx;
+  //trashobj.isVisible= false;
+  //inFlight=false;
+    //return;
 }
 
 //if object is recycling, checkInBlue
@@ -236,18 +241,19 @@ function checkInBlack(objectName){
 
     }
 }
-drawStuff();
+
 
 function gameLoop(timestamp){
   let deltaTime= timestamp-lastTime ;
   lastTime= timestamp;
+  drawStuff();
   if(counter==0)
   {
     //debugger;
   plastic_bottle.update(deltaTime, -Wind, "recycle", plastic_bottle);
   plastic_bottle.draw(ctx);
     if(plastic_bottle.position.y>900|| !plastic_bottle.isVisible ){
-      debugger;
+      //debugger;
       resetGame(paper_ball);
 }
 
@@ -259,10 +265,50 @@ function gameLoop(timestamp){
     if(paper_ball.position.y>900|| !paper_ball.isVisible){
       resetGame(paper_ball);
     }
+    debugger;
   }
 
   requestAnimationFrame(gameLoop);
 
+}
+
+function level1()
+{
+  while(true)
+        {
+          plastic_bottle.update(deltaTime, -Wind, "recycle", plastic_bottle);
+          plastic_bottle.draw(ctx);
+          if(plastic_bottle.position.y>900)
+            {
+                resetGame(plastic_bottle);
+            }
+        }
+}
+
+function level2(){
+  paper_ball.update(deltaTime, -Wind, "compost", paper_ball);
+  paper_ball.draw(ctx);
+  if(paper_ball.position.y>900){
+    resetGame(paper_ball, plastic_bottle)
+  }
+}
+
+function game(timestamp)
+{
+  drawStuff();
+
+  level1();
+  if(plastic_bottle.position.y>900)
+  {
+    resetGame(plastic_bottle);
+  }
+  level2();
+  if(paper_ball.position.y>900)
+  {
+    resetGame(paper_ball);
+  }
+
+  requestAnimationFrame(game);
 }
 
 drawStuff();
