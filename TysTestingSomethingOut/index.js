@@ -20,7 +20,7 @@ class Object{
 
     this.position = {
       x: 70,
-      y: 400
+      y: 300
     };
   }
 
@@ -31,6 +31,9 @@ class Object{
     if(counter==1){
     ctx.fillStyle='#00f';
   }
+    if(counter==2){
+      ctx.fillStyle='#F0DB4F';
+    }
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 
@@ -50,7 +53,7 @@ class Object{
       }
     if(objType=='waste')
       {
-        checkinGreen(objectName);
+        checkInBlack(objectName);
       }
   }
 }
@@ -139,6 +142,7 @@ const GAME_HEIGHT= 600;
 
 let plastic_bottle= new Object("recycle");
 let paper_ball= new Object("compost");
+let diaper= new Object("garbage");
 //let plastic_bottle2= new Object();
 let bluebin=new Bins(GAME_WIDTH, GAME_HEIGHT);
 let redbin=new Bins(GAME_WIDTH, GAME_HEIGHT);
@@ -147,6 +151,8 @@ let blackbin=new Bins(GAME_WIDTH, GAME_HEIGHT);
 let fan = new Fan();
 let ty= new Person();
 let lastTime=0;
+
+
 
 function drawStuff(){
 ctx.clearRect(0,0,800,600);
@@ -181,6 +187,7 @@ function resetGame(trashobj){
   document.getElementById('windActualSpeed').innerHTML = Wind;
   trashobj.isVisible= false;
   inFlight=false;
+  ////CONSOLE.LOG('hit');
   return;
 }
 
@@ -191,16 +198,17 @@ function checkInBlue(objectName){
   if(objectName.position.y>400){
       if(objectName.position.x>324 && objectName.position.x<416)
       {
-        console.log('Point!');
+        //CONSOLE.LOG('Point!');
        // objectName.isVisible=false;
         counter+=1;
+        //CONSOLE.LOG('repet');
         resetGame(objectName);
 
         return;
       }
       else
       {
-        console.log('Miss!');
+        //CONSOLE.LOG('Miss!');
       }
 
     }
@@ -209,14 +217,14 @@ function checkInGreen(objectName){
   if(objectName.position.y>400){
       if(objectName.position.x>449 && objectName.position.x<541)
       {
-      console.log('Point!');
+      //CONSOLE.LOG('Point!');
       counter+=1;
       resetGame(objectName);
       return;
       }
       else
       {
-        console.log('Miss!');
+        //CONSOLE.LOG('Miss!');
       }
 
     }
@@ -225,13 +233,14 @@ function checkInBlack(objectName){
   if(objectName.position.y>400){
       if(objectName.position.x>574 && objectName.position.x<666)
       {
-      console.log('Point!');
+      //CONSOLE.LOG('Point!');
+      console.log('game over');
       counter+=1;
       resetGame(objectName);
       }
       else
       {
-        console.log('Miss!');
+        //CONSOLE.LOG('Miss!');
       }
 
     }
@@ -239,25 +248,48 @@ function checkInBlack(objectName){
 drawStuff();
 
 function gameLoop(timestamp){
+
   let deltaTime= timestamp-lastTime ;
   lastTime= timestamp;
+  ctx.clearRect(0,0,800,600);
+  drawStuff();
+
   if(counter==0)
   {
-    //debugger;
   plastic_bottle.update(deltaTime, -Wind, "recycle", plastic_bottle);
   plastic_bottle.draw(ctx);
-    if(plastic_bottle.position.y>900|| !plastic_bottle.isVisible ){
-      debugger;
-      resetGame(paper_ball);
+  //CONSOLE.LOG('condiitons');
+  ////CONSOLE.LOG(plastic_bottle.position.y>900);
+  //CONSOLE.LOG(plastic_bottle.isVisible);
+    if(plastic_bottle.position.y>900|| plastic_bottle.isVisible ){
+
+      resetGame(plastic_bottle);
+      //CONSOLE.LOG('something differentt');
 }
 
   }
+
   if(counter==1)
   {
   paper_ball.update(deltaTime, -Wind, "compost", paper_ball);
   paper_ball.draw(ctx);
-    if(paper_ball.position.y>900|| !paper_ball.isVisible){
+//console.log(paper_ball.isVisible);
+//console.log('split');
+//console.log(paper_ball.position.y>900);
+    if(paper_ball.position.y>900|| paper_ball.isVisible){
       resetGame(paper_ball);
+    }
+  }
+
+  if(counter==2)
+  {
+  diaper.update(deltaTime, -Wind, "waste", diaper);
+  diaper.draw(ctx);
+//console.log(paper_ball.isVisible);
+//console.log('split');
+//console.log(paper_ball.position.y>900);
+    if(diaper.position.y>900||diaper.isVisible){
+      resetGame(diaper);
     }
   }
 

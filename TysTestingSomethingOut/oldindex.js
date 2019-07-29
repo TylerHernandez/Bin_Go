@@ -296,7 +296,7 @@ function level2(){
 function game(timestamp)
 {
   drawStuff();
-
+//ctx.clearRectt(0,0,800,600);
   level1();
   if(plastic_bottle.position.y>900)
   {
