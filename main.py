@@ -104,7 +104,10 @@ class CompetePage(webapp2.RequestHandler):
         compete_template = jinja_current_directory.get_template("compete.html")
         self.response.write(compete_template.render(template_vars))
 
-
+class AboutPage(webapp2.RequestHandler):
+    def get(self):
+        about_template = jinja_current_directory.get_template("about.html")
+        self.response.write(about_template.render())
 
 
 
@@ -114,6 +117,7 @@ app = webapp2.WSGIApplication([
     ('/signup', SignUpPage),
     ('/welcome', WelcomePage),
     ('/gamepage', GamePage),
-    ('/compete', CompetePage)
+    ('/compete', CompetePage),
+    ('/aboutus', AboutPage)
 
 ], debug=True)
