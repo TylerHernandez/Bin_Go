@@ -20,17 +20,17 @@ h2 {
 .leaderboardcontainer {
   border: 5px solid black;
   width: 30%;
-  position: relative;
+  position: fixed;
   left: 1150px;
-  top: -421px;
+  top: 200px;
 }
 
 .usercontainer {
   border: 5px solid black;
   width: 30%;
-  position: relative;
+  position: fixed;
   left: 20px;
-  top: -270px;
+  top: 200px;
 }
 html{
   height: 100%;
