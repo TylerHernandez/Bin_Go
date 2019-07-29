@@ -52,7 +52,7 @@ class SignUpPage(webapp2.RequestHandler):
         user = users.get_current_user()
         curr_first_name = self.request.get('FirstName')
         curr_last_name = self.request.get('LastName')
-        curr_email = user.email()
+        curr_email = user.nickname()
         curr_lbs_recycled = 0
         curr_items_recycled = []
         curr_user = CssiUser(
